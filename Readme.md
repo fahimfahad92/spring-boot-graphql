@@ -39,17 +39,18 @@ mutation {
 Input type mutation:
 ```
 mutation {
-  addAddress(addressInput: 
+  updateAddress(addressRequest: 
     {
       userId:1, 
       flat:"flat", 
       house:"house", 
-      road:"road"
+      road:"road2"
     }
   ) {
     id
     name
     address {
+      id,
       road
       flat
       house
