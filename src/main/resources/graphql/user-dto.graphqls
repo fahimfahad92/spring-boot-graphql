@@ -1,0 +1,19 @@
+type User {
+    id: ID
+    name: String
+    address: Address
+}
+
+type Address {
+    id: ID
+    road: String
+    house: String
+    flat: String
+}
+
+input AddressRequest {
+    userId: ID
+    road: String
+    house: String
+    flat: String
+}

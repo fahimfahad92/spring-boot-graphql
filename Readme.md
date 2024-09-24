@@ -1,3 +1,18 @@
+Query:
+```
+query {
+  users {
+    id
+    name
+    address {
+      road
+      flat
+      house
+    }
+  }
+}
+```
+Query with parameter:
 ```
 query {
   userByID(id:1) {
@@ -10,16 +25,28 @@ query {
     }
   }
 }
-----------------------------
+```
+Basic mutation operation:
+```
 mutation {
-  addUser(name: "Fahad") {
+  addUser(name: "Fahim") {
     id
     name
   }
 }
----------------------------
+```
+
+Input type mutation:
+```
 mutation {
-  addAddress(userId:1, flat:"flat", house:"house", road:"road") {
+  addAddress(addressInput: 
+    {
+      userId:1, 
+      flat:"flat", 
+      house:"house", 
+      road:"road"
+    }
+  ) {
     id
     name
     address {
