@@ -1,5 +1,7 @@
 package com.rnd.springbootgraphql.usermanagement;
 
+import com.rnd.springbootgraphql.exception.AddressNotFound;
+import com.rnd.springbootgraphql.exception.UserNotFound;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.stereotype.Service;
@@ -17,11 +19,20 @@ public class UserService {
   }
 
   public User userByID(int id) {
-    return userMap.getOrDefault(id, null);
+    User user = userMap.getOrDefault(id, null);
+    if (Objects.isNull(user)) {
+      throw new UserNotFound("User not found");
+    }
+
+    return user;
   }
 
   public Address getUserAddress(int userId) {
-    return addressMap.get(userId);
+    Address address = addressMap.getOrDefault(userId, null);
+    if (Objects.isNull(address)) {
+      throw new AddressNotFound("User address is not set");
+    }
+    return address;
   }
 
   public Map<Integer, Address> getUserAddress(List<Integer> userIds) {
@@ -42,7 +53,7 @@ public class UserService {
   public User updateAddress(AddressRequest addressRequest) throws Exception {
     User user = userMap.get(addressRequest.userId());
     if (Objects.isNull(user)) {
-      throw new Exception("User not found");
+      throw new UserNotFound("User not found");
     }
 
     Address address =

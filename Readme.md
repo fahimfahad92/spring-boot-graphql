@@ -8,6 +8,7 @@ In this project I demonstrated:
 2. Basic mutation type
 3. Mutation with input type
 4. Multiple schema file for specific domain
+5. Exception handling
 
 **How to test:**
 1. Install Java 21 (if not installed before)
