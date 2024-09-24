@@ -1,4 +1,20 @@
-Query:
+# Introduction
+
+This is a template project for GraphQL. I am using Java 21
+and Spring Boot 3.4. To keep it simple I did not use any database.
+
+In this project I demonstrated:
+1. Basic Query type
+2. Basic mutation type
+3. Mutation with input type
+4. Multiple schema file for specific domain
+
+**How to test:**
+1. Install Java 21 (if not installed before)
+2. Open project in IDE and run the project. 
+3. Go to http://localhost:8080/graphiql?path=/graphql and try below queries and mutations
+
+**Query:**
 ```
 query {
   users {
@@ -12,7 +28,7 @@ query {
   }
 }
 ```
-Query with parameter:
+**Query with parameter:**
 ```
 query {
   userByID(id:1) {
@@ -26,7 +42,7 @@ query {
   }
 }
 ```
-Basic mutation operation:
+**Basic mutation operation:**
 ```
 mutation {
   addUser(name: "Fahim") {
@@ -36,7 +52,7 @@ mutation {
 }
 ```
 
-Input type mutation:
+**Input type mutation:**
 ```
 mutation {
   updateAddress(addressRequest: 
