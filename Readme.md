@@ -9,6 +9,7 @@ In this project I demonstrated:
 3. Mutation with input type
 4. Multiple schema file for specific domain
 5. Exception handling
+6. Integration tests
 
 **How to test:**
 1. Install Java 21 (if not installed before)

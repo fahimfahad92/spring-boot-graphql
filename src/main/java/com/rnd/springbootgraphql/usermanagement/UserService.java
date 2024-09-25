@@ -28,6 +28,9 @@ public class UserService {
   }
 
   public Address getUserAddress(int userId) {
+    if (!userMap.containsKey(userId)) {
+      throw new AddressNotFound("User not found");
+    }
     Address address = addressMap.getOrDefault(userId, null);
     if (Objects.isNull(address)) {
       throw new AddressNotFound("User address is not set");
@@ -50,7 +53,7 @@ public class UserService {
     return user;
   }
 
-  public User updateAddress(AddressRequest addressRequest) throws Exception {
+  public User updateAddress(AddressRequest addressRequest) {
     User user = userMap.get(addressRequest.userId());
     if (Objects.isNull(user)) {
       throw new UserNotFound("User not found");
