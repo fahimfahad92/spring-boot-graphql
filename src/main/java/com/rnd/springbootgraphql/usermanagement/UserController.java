@@ -1,5 +1,6 @@
 package com.rnd.springbootgraphql.usermanagement;
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -24,19 +26,12 @@ public class UserController {
 
   @MutationMapping
   public User addUser(@Argument String name) {
+    logger.info("Saving user");
     return userService.addUser(name);
   }
 
-  //  @MutationMapping
-  //  public User addAddress(
-  //      @Argument int userId, @Argument String road, @Argument String house, @Argument String
-  // flat)
-  //      throws Exception {
-  //    return userService.addAddress(userId, road, house, flat);
-  //  }
-
   @MutationMapping
-  public User updateAddress(@Argument AddressRequest addressRequest) throws Exception {
+  public User updateAddress(@Argument AddressRequest addressRequest) {
     return userService.updateAddress(addressRequest);
   }
 
@@ -47,8 +42,22 @@ public class UserController {
   }
 
   @QueryMapping
+  @PreAuthorize("hasRole('ADMIN')")
+  public Collection<User> usersByAdmin() {
+    logger.info("Getting all user");
+    return userService.users();
+  }
+
+  @QueryMapping
   public User userByID(@Argument int id) {
     logger.info("Getting user {}", id);
+    return userService.userByID(id);
+  }
+
+  @QueryMapping
+  public User securedUserByID(@Argument int id, Principal principal) {
+    // principal can be used for getting user specific data
+    logger.info("Getting user {} and principal data {}", id, principal.getName());
     return userService.userByID(id);
   }
 

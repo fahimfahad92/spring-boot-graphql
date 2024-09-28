@@ -10,6 +10,7 @@ In this project I demonstrated:
 4. Multiple schema file for specific domain
 5. Exception handling
 6. Integration tests
+7. Secured the apis using JWT token
 
 **How to test:**
 1. Install Java 21 (if not installed before)

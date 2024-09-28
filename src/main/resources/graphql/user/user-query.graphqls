@@ -1,6 +1,8 @@
 extend type Query {
     users: [User]
+    usersByAdmin: [User]
     userByID (id: Int): User
+    securedUserByID (id: Int): User
     userAddress(userId: Int): Address
 }
 
