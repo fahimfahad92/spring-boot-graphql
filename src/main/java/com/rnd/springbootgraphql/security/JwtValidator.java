@@ -19,23 +19,15 @@ public class JwtValidator {
    */
   public SecuredUser validate(String jwtToken) {
 
-    try {
-      Claims body =
-          Jwts.parser()
-              .setSigningKey(SecurityConstant.JWT_TOKEN)
-              .parseClaimsJws(jwtToken)
-              .getBody();
+    Claims body =
+        Jwts.parser().setSigningKey(SecurityConstant.JWT_TOKEN).parseClaimsJws(jwtToken).getBody();
 
-      if (isExpired((Long) body.get("validTill"))) {
-        logger.error("Token expired");
-        throw new InvalidTokenException("Token Expired");
-      }
-
-      return new SecuredUser(body.getSubject(), null, (String) body.get("role"));
-    } catch (Exception e) {
-      logger.error("Token validation failed {}", e.getMessage());
-      throw new InvalidTokenException(e.getMessage());
+    if (isExpired((Long) body.get("validTill"))) {
+      logger.error("Token expired");
+      throw new InvalidTokenException("Token Expired");
     }
+
+    return new SecuredUser(body.getSubject(), null, (String) body.get("role"));
   }
 
   private boolean isExpired(Long validTill) {
