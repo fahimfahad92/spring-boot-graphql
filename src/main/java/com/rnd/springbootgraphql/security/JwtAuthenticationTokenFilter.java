@@ -1,5 +1,6 @@
 package com.rnd.springbootgraphql.security;
 
+import com.rnd.springbootgraphql.exception.InvalidTokenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.lang.NonNull;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,9 +51,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
       SecurityContextHolder.getContext().setAuthentication(authToken);
       filterChain.doFilter(request, response);
     } catch (Exception e) {
-      if (e instanceof AccessDeniedException) {
-        response.setStatus(403);
-        response.getWriter().write("User does not have access to this resource");
+      if (e instanceof InvalidTokenException) {
+        response.setStatus(401);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"message\":\"Unauthorized\"}");
       }
     }
   }
