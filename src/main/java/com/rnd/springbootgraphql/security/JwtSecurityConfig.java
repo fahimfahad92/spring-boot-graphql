@@ -44,7 +44,12 @@ public class JwtSecurityConfig {
                     .requestMatchers("/graphiql")
                     .permitAll()
                     .anyRequest()
-                    .authenticated());
+                    .authenticated())
+        .exceptionHandling(
+            exception ->
+                exception
+                    .accessDeniedHandler(new CustomAccessDeniedHandler())
+                    .authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
 
     http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 

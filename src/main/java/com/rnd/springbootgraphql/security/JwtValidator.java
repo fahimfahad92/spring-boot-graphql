@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -34,7 +35,7 @@ public class JwtValidator {
       return new SecuredUser(body.getSubject(), null, (String) body.get("role"));
     } catch (Exception e) {
       logger.error("Token validation failed {}", e.getMessage());
-      throw new InvalidTokenException(e.getMessage());
+      throw new AccessDeniedException(e.getMessage());
     }
   }
 

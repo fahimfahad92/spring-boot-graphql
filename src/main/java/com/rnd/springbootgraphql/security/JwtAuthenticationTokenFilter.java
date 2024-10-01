@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -35,18 +36,25 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
       return;
     }
 
-    final String jwtToken = authHeader.substring(7);
-    SecuredUser securedUser = validator.validate(jwtToken);
+    try {
+      final String jwtToken = authHeader.substring(7);
+      SecuredUser securedUser = validator.validate(jwtToken);
 
-    List<GrantedAuthority> grantedAuthorities =
-        List.of(new SimpleGrantedAuthority(securedUser.role()));
-    JwtUserDetails userDetails =
-        new JwtUserDetails(securedUser.username(), securedUser.password(), grantedAuthorities);
+      List<GrantedAuthority> grantedAuthorities =
+          List.of(new SimpleGrantedAuthority(securedUser.role()));
+      JwtUserDetails userDetails =
+          new JwtUserDetails(securedUser.username(), securedUser.password(), grantedAuthorities);
 
-    UsernamePasswordAuthenticationToken authToken =
-        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+      UsernamePasswordAuthenticationToken authToken =
+          new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-    SecurityContextHolder.getContext().setAuthentication(authToken);
-    filterChain.doFilter(request, response);
+      SecurityContextHolder.getContext().setAuthentication(authToken);
+      filterChain.doFilter(request, response);
+    } catch (Exception e) {
+      if (e instanceof AccessDeniedException) {
+        response.setStatus(403);
+        response.getWriter().write("User does not have access to this resource");
+      }
+    }
   }
 }
