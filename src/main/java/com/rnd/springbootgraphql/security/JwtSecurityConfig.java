@@ -46,10 +46,7 @@ public class JwtSecurityConfig {
                     .anyRequest()
                     .authenticated())
         .exceptionHandling(
-            exception ->
-                exception
-                    .accessDeniedHandler(new CustomAccessDeniedHandler())
-                    .authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
+            exception -> exception.authenticationEntryPoint(new CustomAuthenticationEntryPoint()));
 
     http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
