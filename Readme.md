@@ -21,6 +21,7 @@ In this project I demonstrated:
 **Create User API**
 
 URL: http://localhost:8080/user/registration
+
 Sample request:
 ```agsl
 {
@@ -32,6 +33,7 @@ Sample request:
 **Login API**
 
 URL: http://localhost:8080/user/login
+
 Sample request:
 ```agsl
 {
