@@ -15,7 +15,38 @@ In this project I demonstrated:
 **How to test:**
 1. Install Java 21 (if not installed before)
 2. Open project in IDE and run the project. 
-3. Go to http://localhost:8080/graphiql?path=/graphql and try below queries and mutations
+3. Create test user and login to get token
+4. Go to http://localhost:8080/graphiql?path=/graphql and try below queries and mutations with authorization token in the header
+
+**Create User API**
+
+URL: http://localhost:8080/user/registration
+Sample request:
+```agsl
+{
+    "name": "Fahim",
+    "password": "password"
+}
+```
+
+**Login API**
+
+URL: http://localhost:8080/user/login
+Sample request:
+```agsl
+{
+    "name": "Fahim",
+    "password": "password"
+}
+```
+
+Add authorization header:
+
+```agsl
+{
+  "Authorization":"Bearer <<JWT_TOKEN>>"
+}
+```
 
 **Query:**
 ```
