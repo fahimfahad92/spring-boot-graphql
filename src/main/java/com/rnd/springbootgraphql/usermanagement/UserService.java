@@ -3,6 +3,7 @@ package com.rnd.springbootgraphql.usermanagement;
 import com.rnd.springbootgraphql.exception.AddressNotFound;
 import com.rnd.springbootgraphql.exception.UserNotFound;
 import com.rnd.springbootgraphql.security.JwtGenerator;
+import com.rnd.springbootgraphql.security.JwtValidator;
 import com.rnd.springbootgraphql.security.SecuredUser;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,10 +18,12 @@ public class UserService {
   private static final AtomicInteger userIdGenerator = new AtomicInteger();
   private static final AtomicInteger addressIdGenerator = new AtomicInteger();
   private final UserRepository userRepository;
+  private final JwtValidator jwtValidator;
 
   @Autowired
-  public UserService(UserRepository userRepository) {
+  public UserService(UserRepository userRepository, JwtValidator jwtValidator) {
     this.userRepository = userRepository;
+    this.jwtValidator = jwtValidator;
   }
 
   public Collection<User> users() {
@@ -85,5 +88,10 @@ public class UserService {
   public String loginUser(UserDto userDto) throws Exception {
     SecuredUser securedUser = userRepository.validateUser(userDto);
     return JwtGenerator.generate(securedUser);
+  }
+
+  public String getNewAccessToken(String refreshToken) {
+    SecuredUser securedUser = jwtValidator.validate(refreshToken);
+    return JwtGenerator.refreshAccessToken(securedUser);
   }
 }
