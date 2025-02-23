@@ -37,6 +37,7 @@
         <jjwt.version>0.12.6</jjwt.version>
         <springdoc-openapi-starter-webmvc-ui.version>2.6.0</springdoc-openapi-starter-webmvc-ui.version>
         <springdoc-openapi-ui.version>1.8.0</springdoc-openapi-ui.version>
+        <bucket4j_jdk17-core.version>8.14.0</bucket4j_jdk17-core.version>
     </properties>
     <dependencies>
         <dependency>
@@ -104,6 +105,14 @@
             <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!--Rate limiting-->
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j_jdk17-core</artifactId>
+            <version>${bucket4j_jdk17-core.version}</version>
+        </dependency>
+        <!--Rate limiting-->
 
         <!--Swagger-->
         <dependency>
