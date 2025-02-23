@@ -45,6 +45,8 @@ public class JwtSecurityConfig {
                     .permitAll()
                     .requestMatchers("/actuator/**")
                     .permitAll()
+                    .requestMatchers("/api/v1/auth/**", "/v3/api-docs/**", "/swagger-ui/**")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
         .exceptionHandling(
