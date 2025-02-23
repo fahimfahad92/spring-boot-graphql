@@ -43,6 +43,8 @@ public class JwtSecurityConfig {
                     .permitAll()
                     .requestMatchers("/graphiql")
                     .permitAll()
+                    .requestMatchers("/actuator/**")
+                    .permitAll()
                     .anyRequest()
                     .authenticated())
         .exceptionHandling(
