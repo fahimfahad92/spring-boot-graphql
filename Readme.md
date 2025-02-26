@@ -15,8 +15,15 @@ In this project I demonstrated:
 **How to test:**
 1. Install Java 21 (if not installed before)
 2. Open project in IDE and run the project. 
-3. Create test user and login to get token
-4. Go to http://localhost:8080/graphiql?path=/graphql and try below queries and mutations with authorization token in the header
+3. For docker use below commands: 
+
+   **./mvnw clean install**
+
+   **docker compose build**
+
+   **docker compose up**
+4. Create test user and login to get token
+5. Go to http://localhost:8080/graphiql?path=/graphql and try below queries and mutations with authorization token in the header
 
 **Create User API**
 

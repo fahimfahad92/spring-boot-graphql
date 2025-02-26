@@ -1,0 +1,8 @@
+name: sb-3-j-21-gql-template
+
+services:
+  app:
+    build: .
+    image: app:latest
+    ports:
+      - "8080:8080"
