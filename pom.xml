@@ -35,7 +35,7 @@
         <assertj-core.version>3.25.3</assertj-core.version>
         <spring-webflux.version>6.1.14</spring-webflux.version>
         <jjwt.version>0.12.6</jjwt.version>
-        <springdoc-openapi-starter-webmvc-ui.version>2.6.0</springdoc-openapi-starter-webmvc-ui.version>
+        <springdoc-openapi-starter-webmvc-ui.version>2.8.3</springdoc-openapi-starter-webmvc-ui.version>
         <springdoc-openapi-ui.version>1.8.0</springdoc-openapi-ui.version>
         <bucket4j_jdk17-core.version>8.14.0</bucket4j_jdk17-core.version>
     </properties>
